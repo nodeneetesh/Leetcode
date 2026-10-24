@@ -3,15 +3,19 @@ class Solution {
         int low =0;
         int high = nums.length-1;
         int mid = -1;
+        int result = nums.length;
 
         while(low<=high){
             mid = low +(high-low)/2;
             if (nums[mid] == target) return mid;
             else{
-                if(nums[mid]<target) low =mid+1;
-                else high =  mid-1;
+                if(nums[mid]>target){
+                    high=mid-1;
+                    result=mid;
+                }
+                else low =mid+1;
             }
-        }return low;
+        }return result;
         
         
     }
