@@ -1,41 +1,103 @@
 class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        if (nums1.length > nums2.length) {
-            return findMedianSortedArrays(nums2, nums1);
+        int n1 =nums1.length;
+        int n2= nums2.length;
+        boolean even = (n1+n2)%2==0;
+        int a1=0;
+        int a2=0;
+        int first =-1;
+        int second=-1;
+        int b=0;
+        int f=-1;
+        if(even){
+             a1 =((n1+n2)/2)-1;
+            a2 =(n1+n2)/2;
+           
+        }else{
+             b=(n1+n2)/2;
+            
         }
+        int i=0;
+        int j=0;
+        int count=-1;
+        while(i<n1 && j<n2){
+            if(nums1[i]<=nums2[j]){
+                count++;
+                
+                if(even){
+                    if(count==a1){
+                        first =nums1[i];
 
-        int m = nums1.length;
-        int n = nums2.length;
+                    }if(count==a2){
+                        second=nums1[i];
+                        break;
+                    }
+                }else{
+                    if(count==b){
+                        f=nums1[i];
+                    }
+                } i++;
+            }else{
+                count++;
+                
+                if(even){
+                    if(count==a1){
+                        first =nums2[j];
 
-        int low = 0;
-        int high = m;
+                    }if(count==a2){
+                        second=nums2[j];
+                        break;
+                    }
+                }else{
+                    if(count==b){
+                        f=nums2[j];
+                    }
+                }j++;
 
-        while (low <= high) {
-            int partition1 = (low + high) / 2;
-            int partition2 = (m + n + 1) / 2 - partition1;
 
-            int maxLeft1 = (partition1 == 0) ? Integer.MIN_VALUE : nums1[partition1 - 1];
-            int minRight1 = (partition1 == m) ? Integer.MAX_VALUE : nums1[partition1];
 
-            int maxLeft2 = (partition2 == 0) ? Integer.MIN_VALUE : nums2[partition2 - 1];
-            int minRight2 = (partition2 == n) ? Integer.MAX_VALUE : nums2[partition2];
-
-            if (maxLeft1 <= minRight2 && maxLeft2 <= minRight1) {
-                if ((m + n) % 2 == 1) {
-                    return Math.max(maxLeft1, maxLeft2);
-                }
-
-                return (Math.max(maxLeft1, maxLeft2) +
-                        Math.min(minRight1, minRight2)) / 2.0;
-            }
-
-            if (maxLeft1 > minRight2) {
-                high = partition1 - 1;
-            } else {
-                low = partition1 + 1;
             }
         }
+        while(i<n1){
+            count++;
+            if(even){
+                    if(count==a1){
+                        first =nums1[i];
+                        
 
-        return 0.0;
+                    }if(count==a2){
+                        second=nums1[i];
+                        break;
+                    }
+                }else{
+                    if(count==b){
+                        f=nums1[i];
+                    }
+                }i++;
+        }
+        while(j<n2){
+            count++;
+            if(even){
+                    if(count==a1){
+                        first =nums2[j];
+
+                    }if(count==a2){
+                        second=nums2[j];
+                        break;
+                    }
+                }else{
+                    if(count==b){
+                        f=nums2[j];
+                    }
+                }j++;
+        }
+        if(even){
+           double result = (first + (double) second) / 2;
+            return result;
+        }else{
+            double result=f;
+            return result;
+        }
+        
     }
 }
