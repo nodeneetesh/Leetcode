@@ -2,37 +2,24 @@ class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
          int m = matrix.length;
         int n= matrix[0].length;
-        int low =0;
-        int high =m-1;
-        boolean result=false;
-        for(int i=0; i<m; i++){
-            if(matrix[i][n-1]<target){
-                continue;
+       int i =0;
+       int j= n-1;
+       boolean result = false;
+        while(j>=0 && i<m){
+            if(matrix[i][j]==target){
+                result= true;
+                break;
+            
             }else{
-                low =0;
-                high=n-1;
-                while(low<=high){
-                    int mid =low+(high-low)/2;
-                    if(matrix[i][mid]==target){
-                        result=true;
-                        break;
+                if(matrix[i][j]<target){
+                    i++;
+                }else{
+                    j--;
 
-                    }
-                    else{
-                        if(matrix[i][mid]<target){
-                            low=mid+1;
-                        }else{
-                            high = mid-1;
-                        }
-                    }
                 }
-            }
-            if (result){
-                return true;
             }
         }
         return result;
-       
         
     }
 }
